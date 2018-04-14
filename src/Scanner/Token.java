@@ -17,9 +17,11 @@ public class Token {
 }
     static String reservedWords = "ifthenelseendrepeatuntilreadwrite";
     static String specialSymbols = "+-*/=<();:={}";
-   
-    //static String regex = "((?<=[\\*\\+-/=<();:={} ])|(?=[\\*\\+-/=<();:={} ]))";
-    static String regex = "((?<=[\\*\\+-/<();{} ]|:=|=)|(?=[\\*\\+-/<();{} ]|:=|=))";
+    static int i = 0;
+    static String regex = "((?<=[\\*\\+-/=<();:={}\n ])|(?=[\\*\\+-/=<();:={}\n ]))";
+    //static String regex = "((?<=[\\*\\+-/<();{}\n ]|:=|=)|(?=[\\*\\+-/<();{}\n ]|:=|=))";
+   // static String regex = "(?<=\\*|\\+|-|/|<|(|)|;|{|}|\n| |:=|=)|(?=\\*|\\+|-|/|<|(|)|;|{|}|\n| |:=|=)";
+
     private TokenTypes TokenType;
     String Lexeme  ;
 
@@ -33,16 +35,21 @@ public class Token {
      String [] Stringtokens =  S.split(regex);
      //Stringtokens =  S.split(regex);
      ArrayList Tokens = new ArrayList<Token>();
-     for (int i =0; i<Stringtokens.length;i++)
+   
+     for ( i =0; i<Stringtokens.length;i++)
         {
-            Tokens .add(getToken(Stringtokens[i],Stringtokens ,i));
-
+            //if (!(Stringtokens[i].contains(" ")||(Stringtokens[i].equals("\n"))))
+            if (!(Stringtokens[i].trim().equals("")))
+            {
+            if(Stringtokens[i].trim().equals(":") &&Stringtokens[i+1].trim().equals("=") ) {Tokens .add(getToken(":=",Stringtokens ));i++;}
+            else  Tokens .add(getToken(Stringtokens[i].trim(),Stringtokens ));
+           
         }
-
+        }
 
     return Tokens;
    }
-   public static Token getToken (String s,  String [] StringTokens,int i){
+   public static Token getToken (String s,  String [] StringTokens){
          Token token ;
        //if(!(s.equals(" "))){
      
@@ -50,17 +57,18 @@ public class Token {
            token = new Token(TokenTypes.ReservedWord, s);
        }
        else if(specialSymbols.contains(s)){
-           if (s != "{"|| s!="}"){
+           if (!s .equals("{") || s .equals("}")){
                token = new Token(TokenTypes.Symbol, s);
            }
            else {
                String comment="{";
-               while (StringTokens[i] != "}"){
-                   
-                   comment.concat(StringTokens[i]);
+               while (!StringTokens[i].equals("}")){
                    i++;
+                   comment = comment.concat(StringTokens[i]);
+                 // System.out.println(comment );
+                   
                }
-               comment.concat("}");
+               
                i++;
                token = new Token(TokenTypes.Comment,comment);
            }
@@ -90,6 +98,6 @@ public class Token {
 }   
   public String toString()
   {
-      return ("Token: "+TokenType.toString()+"    Lexeme: "+Lexeme);
+      return ("Token: "+TokenType.toString()+"       Lexeme: "+Lexeme);
   }
 }
