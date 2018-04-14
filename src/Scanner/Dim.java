@@ -1,4 +1,4 @@
-package compiler;
+package Scanner;
 
 import java.awt.Toolkit;
 
