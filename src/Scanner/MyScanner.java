@@ -1,5 +1,7 @@
 package Scanner;
 
+import java.util.ArrayList;
+
 
 public class MyScanner {
 
@@ -13,7 +15,12 @@ public class MyScanner {
 " until x = 0;\n" +
 " write fact\n" +
 "end";
-        Token.Tokenize(S);
+        ArrayList <Token>tokens = Token.Tokenize(S);
+        for (int i =0; i<tokens.size();i++)
+{
+System.out.println( tokens.get(i));
+}
+
       
     
     }
