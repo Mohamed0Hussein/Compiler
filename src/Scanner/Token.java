@@ -18,7 +18,7 @@ public class Token {
     static String reservedWords = "ifthenelseendrepeatuntilreadwrite";
     static String specialSymbols = "+-*/=<();:={}";
     static int i = 0;
-    static String regex = "((?<=[\\*\\+-/=<();:={}\n ])|(?=[\\*\\+-/=<();:={}\n ]))";
+    static String regex = "((?<=[\\*\\+-/=<();:={}\n \t ])|(?=[\\*\\+-/=<();:={}\n\t ]))";
     //static String regex = "((?<=[\\*\\+-/<();{}\n ]|:=|=)|(?=[\\*\\+-/<();{}\n ]|:=|=))";
    // static String regex = "(?<=\\*|\\+|-|/|<|(|)|;|{|}|\n| |:=|=)|(?=\\*|\\+|-|/|<|(|)|;|{|}|\n| |:=|=)";
 
