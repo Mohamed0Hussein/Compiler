@@ -98,6 +98,8 @@ public class Token {
 }   
   public String toString()
   {
+      if (!(TokenType==TokenType.ReservedWord ))
       return ("Token: "+TokenType.toString()+"       Lexeme: "+Lexeme);
+      return ("Token: "+"Reserved Word"+"       Lexeme: "+Lexeme);
   }
 }
