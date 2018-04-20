@@ -1,5 +1,5 @@
 read x;   
-if  0 < x   then {this is a comment}   
+if  0 < x   then {this is a: comment}   
   fact  := 1;
   repeat 
    fact  := fact *  x;
@@ -7,3 +7,19 @@ if  0 < x   then {this is a comment}
    until  x  =  0;
    write  fact   
 end  
+
+
+
+{
+ajshga jsajhs 
+}
+LOLXD
+ {+ = }
+:
+{ until }
+{until
+ }
+{
+until
+}
+f =f!act

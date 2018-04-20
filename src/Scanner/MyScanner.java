@@ -32,11 +32,13 @@ public class MyScanner {
 
                 try {
                     S = S.concat(input.readLine());
+                    S = S.concat("\n");
                 } catch (NullPointerException ex) {
                     break;
                 }
 
             }
+           // System.out.println(S);
             ArrayList<Token> tokens = Token.Tokenize(S);
             for (int i = 0; i < tokens.size(); i++) {
                 System.out.println(tokens.get(i));
