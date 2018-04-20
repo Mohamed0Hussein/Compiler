@@ -16,22 +16,23 @@ public class Token {
     static enum TokenTypes {
         ID, Symbol, ReservedWord, Number, Comment, Error
     }
-    static String reservedWords = "if then else end repeat until read write";
-    static String[] reservedWordsArray = reservedWords.split(" ");
-    static String specialSymbols = "+-*/=<();:={}";
-    static int i = 0;
-    static String regex = "((?<=[\\*\\+-/=<();:={}\n\t ])|(?=[\\*\\+-/=<();:={}\n\t ]))";
+    private static String reservedWords = "if then else end repeat until read write";
+    private static String[] reservedWordsArray = reservedWords.split(" ");
+    private static String specialSymbols = "+-*/=<();:={}";
+    private static int i = 0;
+    private static String regex = "((?<=[\\*\\+-/=<();:={}\n\t ])|(?=[\\*\\+-/=<();:={}\n\t ]))";
+    private static int longestStringLenght = 0;
 
     private TokenTypes TokenType;
-    String Lexeme;
-    String ErrorDescription;
+    private String Lexeme;
+    private String ErrorDescription;
 
-    public Token(TokenTypes TokenType, String Lexeme) {
+    private Token(TokenTypes TokenType, String Lexeme) {
         this.TokenType = TokenType;
         this.Lexeme = Lexeme;
     }
 
-    public Token(TokenTypes TokenType, String Lexeme, String ErrorDescription) {
+    private Token(TokenTypes TokenType, String Lexeme, String ErrorDescription) {
         this.TokenType = TokenType;
         this.Lexeme = Lexeme;
         this.ErrorDescription = ErrorDescription;
@@ -68,7 +69,11 @@ public class Token {
         return Tokens;
     }
 
-    public static Token getToken(String s, String[] StringTokens) {
+    private static Token getToken(String s, String[] StringTokens) {
+        if (s.length()>longestStringLenght)
+        {
+            longestStringLenght= s.length();
+        }
         Token token;
         //if(!(s.equals(" "))){
         boolean isResrved = false;
@@ -95,15 +100,16 @@ public class Token {
                     boolean inLine = true;
                     while (!StringTokens[i].equals("}")) {
                         i++;
-                        comment = comment.concat(StringTokens[i]);
+                        
                         if (StringTokens[i].contains("\n")) {
                             inLine = false;
                             break;
                         }
-
+                        comment = comment.concat(StringTokens[i]);
         
                     }
-
+                    if (comment.length()> longestStringLenght)
+                        longestStringLenght= comment.length();
                 
                     if (inLine) {
                         token = new Token(TokenTypes.Comment, comment);
@@ -138,7 +144,7 @@ public class Token {
         return token;
     }
 
-    public static boolean isNumeric(String s) {
+    private static boolean isNumeric(String s) {
         try {
             int x = Integer.parseInt(s);
         } catch (NumberFormatException nfe) {
@@ -164,7 +170,11 @@ public class Token {
             for (int i = 0; i < ("Reserved Word").length() - TokenType.toString().length(); i++) {
                 s = s.concat(" ");
             }
-            return (s + "       Lexeme: " + Lexeme + "    " + this.ErrorDescription);
+            s = s.concat("       Lexeme: " + Lexeme);
+            for (int i = 0; i < longestStringLenght - Lexeme.length(); i++) {
+                s = s.concat(" ");
+            }
+            return (s+"   " + this.ErrorDescription);
         }
     }
 }
