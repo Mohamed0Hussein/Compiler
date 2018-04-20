@@ -95,7 +95,7 @@ public class Token {
                     token = new Token(TokenTypes.Symbol, s);
                 } else {
                     //OLD
-                    int temp = i;
+                    
                     String comment = "{";
                     boolean inLine = true;
                     while (!StringTokens[i].equals("}")) {
